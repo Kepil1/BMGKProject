@@ -23,7 +23,7 @@ app.get('/add', (req, res) => {
 })
 
 app.post('/add', async (req, res) => {
-    const {name,portion,chefid} = req.body
+    const {name,portion,chefname} = req.body
 
     try {
         console.log(req.body)

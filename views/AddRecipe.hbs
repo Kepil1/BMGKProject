@@ -30,7 +30,7 @@
             chefname: $('#chefname').val()
         })
         .done(function (data) {
-            console.log(data.responseJSON.message)
+            console.log(data.message)
             $('#success').show()
             setTimeout(function () {
                 $('#success').hide()
