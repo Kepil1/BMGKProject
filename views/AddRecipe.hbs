@@ -12,11 +12,14 @@
         <label for="chefname">Şef Adı</label>
         <input type="text" class="form-control" id="chefname" placeholder="Örn. Somer Sivrioğlu">
     </div>
+    <div id="success" style="display: none" class="text-center">
+        <i style="color: rgba(65, 195, 65, 0.709);">Tarif eklendi</i>
+    </div>
+    <div id="fail" style="display: none" class="text-center">
+        <i style="color: rgba(221, 40, 40, 0.709);">Tarif eklenirken hata!</i>
+    </div>
     <button type="button" id="addBtn" class="btn btn-primary">Ekle</button>
     </form>
-    <div class="text-center">
-        <i style="color: red;">Tarif eklendi</i>
-    </div>
 </div>
 
 <script>
@@ -27,7 +30,18 @@
             chefname: $('#chefname').val()
         })
         .done(function (data) {
-            console.log('Tarif eklendi')
+            console.log(data.responseJSON.message)
+            $('#success').show()
+            setTimeout(function () {
+                $('#success').hide()
+            }, 2000)
+        })
+        .fail(function (error) {
+            console.log(error.responseJSON.message)
+            $('#fail').show()
+            setTimeout(function () {
+                $('#fail').hide()
+            }, 2000)
         })
     })
 </script>

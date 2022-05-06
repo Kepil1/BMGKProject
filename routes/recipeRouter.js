@@ -6,11 +6,16 @@ const Recipe = require('../models/Recipe')
 const app = Router()
 
 app.get('/', async (req, res) => {
-    const recipes = await Recipe.find().lean()
+    try {
+        const recipes = await Recipe.find().lean()
 
-    res.render('recipes', {
-        recipes
-    })
+        res.render('recipes', {
+            recipes
+        })
+    } catch (error) {
+        console.log(error)
+        res.render('recipes')
+    }
 })
 
 app.get('/add', (req, res) => {
@@ -21,10 +26,11 @@ app.post('/add', async (req, res) => {
     const {name,portion,chefid} = req.body
 
     try {
-        await Recipe.create({name, portion, chefid})
-        res.json({ok: true, message: 'Tarifiniz eklendi'})
+        console.log(req.body)
+        await Recipe.create({name, portion: Number(portion), chefname})
+        res.status(200).json({ok: true, message: 'Tarifiniz eklendi'})
     } catch (error) {
-        res.json({ok:false, message: 'Hata'})
+        res.status(500).json({ok:false, message: 'Hata'})
     }
 })
 
