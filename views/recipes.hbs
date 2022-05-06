@@ -1,3 +1,9 @@
 <div class="text-center">
     <h2>Yemek Tarifleri</h2>
+    {{#if recipes.length}}
+        {{#each}}
+            <p>Tarif Adı : {{recipe.name}}</p>
+            <p>Şef Idsi : {{recipe.chefid}}</p>
+        {{/each}}
+    {{/if}}
 </div>

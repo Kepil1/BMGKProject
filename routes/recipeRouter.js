@@ -6,7 +6,15 @@ const Recipe = require('../models/Recipe')
 const app = Router()
 
 app.get('/', async (req, res) => {
-    res.render('recipes')
+    const recipes = await Recipe.find().lean()
+
+    res.render('recipes', {
+        recipes
+    })
+})
+
+app.get('/add', (req, res) => {
+    res.render('AddRecipe')
 })
 
 app.post('/add', async (req, res) => {

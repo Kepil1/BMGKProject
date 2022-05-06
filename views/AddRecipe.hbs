@@ -1,0 +1,33 @@
+<div class="mt-3">
+    <form>
+    <div class="form-group mb-2">
+        <label for="name">Tarif Adı</label>
+        <input type="text" class="form-control" id="name" placeholder="Örn. Omlet">
+    </div>
+    <div class="form-group mb-2">
+        <label for="portion">Porsiyon</label>
+        <input type="number" value="1" min="1" max="6" class="form-control" id="portion">
+    </div>
+    <div class="form-group mb-2">
+        <label for="chefname">Şef Adı</label>
+        <input type="text" class="form-control" id="chefname" placeholder="Örn. Somer Sivrioğlu">
+    </div>
+    <button type="button" id="addBtn" class="btn btn-primary">Ekle</button>
+    </form>
+    <div class="text-center">
+        <i style="color: red;">Tarif eklendi</i>
+    </div>
+</div>
+
+<script>
+    $('#addBtn').on('click', function () {
+        $.post('http://localhost:3333/recipes/add', {
+            name: $('#name').val(),
+            portion: $('#portion').val(),
+            chefname: $('#chefname').val()
+        })
+        .done(function (data) {
+            console.log('Tarif eklendi')
+        })
+    })
+</script>
