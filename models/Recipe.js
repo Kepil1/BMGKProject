@@ -3,7 +3,6 @@ const { Schema, model } = require('mongoose')
 const Recipe = Schema({
     name: { type: String, required: true },
     portion: { type: Number, required: false, default: 1 },
-    comments: [Number],
     chefid: { type: Schema.Types.ObjectId, required: true }
 })
 

@@ -5,10 +5,13 @@ const express = require('express')
 const expressHBS = require('express-handlebars')
 const mongoose = require('mongoose')
 
+const RecipeRouter = require('./routes/recipeRouter')
+const ChefRouter = require('./routes/chefRouter')
+
 const app = express();
 
 const hbs = expressHBS.create({
-    defaultLayout: 'main',
+    defaultLayout: 'mainLayout',
     extname: 'hbs'
 })
 
@@ -20,7 +23,12 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static("public"))
 app.use(express.json())
 
-// app.use(router eklenecek);
+app.use('/recipes', RecipeRouter)
+app.use('/chefs', ChefRouter)
+
+app.get('/', (req, res) => {
+    res.render('index')
+})
 
 const start = async () => {
     try {
