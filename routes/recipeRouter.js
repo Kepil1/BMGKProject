@@ -26,11 +26,10 @@ app.post('/add', async (req, res) => {
     const {name,portion,chefname} = req.body
 
     try {
-        console.log(req.body)
         await Recipe.create({name, portion: Number(portion), chefname})
         res.status(200).json({ok: true, message: 'Tarifiniz eklendi'})
     } catch (error) {
-        res.status(500).json({ok:false, message: 'Hata'})
+        res.status(500).json({ok:false, message: 'Tarif eklerken hata'})
     }
 })
 

@@ -1,0 +1,37 @@
+<div class="mt-3">
+    <form>
+    <div class="form-group mb-2">
+        <label for="name">Şef Adı</label>
+        <input type="text" class="form-control" id="name" placeholder="Örn. Somer Sivrioğlu">
+    </div>
+    <div id="success" style="display: none" class="text-center">
+        <i style="color: rgba(65, 195, 65, 0.709);">Şef eklendi</i>
+    </div>
+    <div id="fail" style="display: none" class="text-center">
+        <i style="color: rgba(221, 40, 40, 0.709);">Şef eklenirken hata!</i>
+    </div>
+    <button type="button" id="addBtn" class="btn btn-primary">Ekle</button>
+    </form>
+</div>
+
+<script>
+    $('#addBtn').on('click', function () {
+        $.post('http://localhost:3333/chefs/add', {
+            name: $('#name').val()
+        })
+        .done(function (data) {
+            console.log(data.message)
+            $('#success').show()
+            setTimeout(function () {
+                $('#success').hide()
+            }, 2000)
+        })
+        .fail(function (error) {
+            console.log(error.responseJSON.message)
+            $('#fail').show()
+            setTimeout(function () {
+                $('#fail').hide()
+            }, 2000)
+        })
+    })
+</script>
