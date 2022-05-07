@@ -4,16 +4,39 @@
     {{#if chefs.length}}
         {{#each chefs}}
             <p style="display: inline">Şef Adı : {{name}}</p>
-            <button class="formButton me-2 ms-2" onclick="updateFunc('{{_id}}')">Düzenle</button>
+            <button class="formButton me-2 ms-2" data-toggle="modal" data-target="#updateModal" onclick="updateFunc('{{_id}}')">Düzenle</button>
             <button class="formButton" onclick="deleteFunc('{{_id}}')">Sil</button>
             <hr>
         {{/each}}
     {{/if}}
 </div>
 
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Şef Bilgileri Güncelleme</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <label for="upt_name">Şef Adı</label>
+            <input type="text" class="form-control" id="upt_name" placeholder="Örn. Somer Sivrioğlu">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+        <button type="button" class="btn btn-primary">Kaydet</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
     function updateFunc (id) {
-        alert(`id : ${id} | operation : update`)
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
     }
     function deleteFunc (id) {
         $.ajax({
