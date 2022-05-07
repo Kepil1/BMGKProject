@@ -38,6 +38,12 @@ app.get('/', (req, res) => {
     res.render('index')
 })
 
+app.get('*', (req, res) => {
+    res.render('NotFound', {
+        error: 'Aradığınız Sayfa Bulunamadı 😥'
+    })
+})
+
 const start = async () => {
     try {
         const MongoConnection = MONGO_CONNECTION ?? "";
