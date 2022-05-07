@@ -1,10 +1,73 @@
+<script>
+    let new_id = ''
+    $(document).ready(function () {
+        $('#updateBtn').on('click', function () {
+            $.ajax({
+            url: `http://192.168.1.35:3333/recipes/update/${new_id}/${$('#upt_name').val()}/${$('#upt_portion').val()}/${$('#upt_chefname').val()}`,
+            type: 'PUT',
+            success: function (data) {
+                alert(data.message)
+                location.reload()
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                alert(errorMessage)
+            }
+        })
+        })
+    })
+    function updateFunc (id) {
+        new_id = id
+        $('#updateModal').modal('show')
+    }
+    function deleteFunc (id) {
+        $.ajax({
+            url: 'http://192.168.1.35:3333/recipes/delete/'.concat(id),
+            type: 'DELETE',
+            success: function (data) {
+                alert(data.message)
+                location.reload()
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                alert(errorMessage)
+            }
+        })
+    }
+</script>
+
 <div class="text-center">
     <h2>Yemek Tarifleri</h2>
     <hr>
     {{#if recipes.length}}
         {{#each recipes}}
-            <p>Tarif Adı : {{name}} | Porsiyon : {{portion}} | Şef Adı : {{chefname}}</p>
+            <p style="display: inline">Tarif Adı : {{name}} | Porsiyon : {{portion}} | Şef Adı : {{chefname}}</p>
+            <button class="formButton me-2 ms-2" onclick="updateFunc('{{_id}}')">Düzenle</button>
+            <button class="formButton" onclick="deleteFunc('{{_id}}')">Sil</button>
             <hr>
         {{/each}}
     {{/if}}
+</div>
+
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tarif Bilgileri Güncelleme</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <label for="upt_name">Tarif Adı</label>
+            <input type="text" class="form-control" id="upt_name" placeholder="Örn. Omlet">
+            <label for="upt_portion">Porsiyon</label>
+            <input type="number" value="1" min="1" max="6" class="form-control" id="upt_portion">
+            <label for="upt_chefname">Tarif Adı</label>
+            <input type="text" class="form-control" id="upt_chefname" placeholder="Örn. Somer Sivrioğlu">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+        <button id="updateBtn" type="button" class="btn btn-primary">Kaydet</button>
+      </div>
+    </div>
+  </div>
 </div>
