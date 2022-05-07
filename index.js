@@ -26,6 +26,20 @@ app.use(express.json())
 app.use('/recipes', RecipeRouter)
 app.use('/chefs', ChefRouter)
 
+function errorHandler (err, req, res, next) {
+    if (res.headersSent) return res.next(err)
+    res.status(500)
+    res.render('error', {error: err})
+}
+
+app.use(errorHandler)
+
+app.use(function (req, res, next) {
+    if (!req.route) {
+        res.render('NotFound', {error: 'Aradığınız Sayfa Bulunamadı :('})
+    }
+})
+
 app.get('/', (req, res) => {
     res.render('index')
 })
