@@ -34,12 +34,6 @@ function errorHandler (err, req, res, next) {
 
 app.use(errorHandler)
 
-app.use(function (req, res, next) {
-    if (!req.route) {
-        res.render('NotFound', {error: 'Aradığınız Sayfa Bulunamadı :('})
-    }
-})
-
 app.get('/', (req, res) => {
     res.render('index')
 })
