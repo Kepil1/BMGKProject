@@ -1,10 +1,45 @@
+<script>
+    let new_id = ''
+    $(document).ready(function () {
+        $('#updateBtn').on('click', function () {
+            $.ajax({
+            url: `http://192.168.1.35:3333/chefs/update/${new_id}/${$('#upt_name').val()}`,
+            type: 'PUT',
+            success: function (data) {
+                alert(data.message)
+                location.reload()
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                alert(errorMessage)
+            }
+        })
+        })
+    })
+    function updateFunc (id) {
+        new_id = id
+        $('#updateModal').modal('show')
+    }
+    function deleteFunc (id) {
+        $.ajax({
+            url: 'http://192.168.1.35:3333/chefs/delete/'.concat(id),
+            type: 'DELETE',
+            success: function (data) {
+                alert(data.message)
+                location.reload()
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                alert(errorMessage)
+            }
+        })
+    }
+</script>
 <div class="text-center">
     <h2>Bünyemizde Bulunan Şef Kadrosu</h2>
     <hr>
     {{#if chefs.length}}
         {{#each chefs}}
             <p style="display: inline">Şef Adı : {{name}}</p>
-            <button class="formButton me-2 ms-2" data-toggle="modal" data-target="#updateModal" onclick="updateFunc('{{_id}}')">Düzenle</button>
+            <button class="formButton me-2 ms-2" onclick="updateFunc('{{_id}}')">Düzenle</button>
             <button class="formButton" onclick="deleteFunc('{{_id}}')">Sil</button>
             <hr>
         {{/each}}
@@ -26,29 +61,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-        <button type="button" class="btn btn-primary">Kaydet</button>
+        <button id="updateBtn" type="button" class="btn btn-primary">Kaydet</button>
       </div>
     </div>
   </div>
 </div>
-
-<script>
-    function updateFunc (id) {
-        $('#myModal').on('shown.bs.modal', function () {
-            $('#myInput').trigger('focus')
-        })
-    }
-    function deleteFunc (id) {
-        $.ajax({
-            url: 'http://192.168.1.35:3333/chefs/delete/'.concat(id),
-            type: 'DELETE',
-            success: function (data) {
-                alert(data.message)
-                location.reload()
-            },
-            error: function (jqXhr, textStatus, errorMessage) {
-                alert(errorMessage)
-            }
-        })
-    }
-</script>
