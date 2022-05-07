@@ -3,8 +3,29 @@
     <hr>
     {{#if chefs.length}}
         {{#each chefs}}
-            <p>Şef Adı : {{name}}</p>
+            <p style="display: inline">Şef Adı : {{name}}</p>
+            <button class="formButton me-2 ms-2" onclick="updateFunc('{{_id}}')">Düzenle</button>
+            <button class="formButton" onclick="deleteFunc('{{_id}}')">Sil</button>
             <hr>
         {{/each}}
     {{/if}}
 </div>
+
+<script>
+    function updateFunc (id) {
+        alert(`id : ${id} | operation : update`)
+    }
+    function deleteFunc (id) {
+        $.ajax({
+            url: 'http://192.168.1.35:3333/chefs/delete/'.concat(id),
+            type: 'DELETE',
+            success: function (data) {
+                alert(data.message)
+                location.reload()
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                alert(errorMessage)
+            }
+        })
+    }
+</script>

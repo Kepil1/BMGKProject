@@ -38,4 +38,19 @@ app.post('/add', async (req, res) => {
     }
 })
 
+app.delete('/delete/:id', async (req, res) => {
+    const {id} = req.params
+    try {
+        const data = await Chef.findById(id).lean()
+        if (!data) {
+            return res.status(500).json({ok: false, message: 'Böyle bir şef bulunamadı'})
+        }
+
+        await Chef.findByIdAndDelete(id)
+        res.status(200).json({ok: true, message: 'Şef silindi'})
+    } catch (error) {
+        res.status(500).json({ok: false, message: 'Şef silinirken hata oluştu'})
+    }
+})
+
 module.exports = app
