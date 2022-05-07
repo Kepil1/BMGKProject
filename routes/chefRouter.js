@@ -26,6 +26,11 @@ app.post('/add', async (req, res) => {
     const {name} = req.body
 
     try {
+        const duplicate = await (await Chef.find({name}).lean()).length
+        if (duplicate) {
+            return res.status(500).json({ok: false, message: 'Bu isimle bir şef zaten var!'})
+        }
+
         await Chef.create({name})
         res.status(200).json({ok: true, message: 'Şef eklendi'})
     } catch (error) {

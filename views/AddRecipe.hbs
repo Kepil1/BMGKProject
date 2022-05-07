@@ -13,10 +13,10 @@
         <input type="text" class="form-control" id="chefname" placeholder="Örn. Somer Sivrioğlu">
     </div>
     <div id="success" style="display: none" class="text-center">
-        <i style="color: rgba(65, 195, 65, 0.709);">Tarif eklendi</i>
+        <i id="successValue" style="color: rgba(65, 195, 65, 0.709);">Tarif eklendi</i>
     </div>
     <div id="fail" style="display: none" class="text-center">
-        <i style="color: rgba(221, 40, 40, 0.709);">Tarif eklenirken hata!</i>
+        <i id="failValue" style="color: rgba(221, 40, 40, 0.709);">Tarif eklenirken hata!</i>
     </div>
     <button type="button" id="addBtn" class="btn btn-primary">Ekle</button>
     </form>
@@ -31,6 +31,7 @@
         })
         .done(function (data) {
             console.log(data.message)
+            $('#successValue').text(data.message)
             $('#success').show()
             setTimeout(function () {
                 $('#success').hide()
@@ -38,6 +39,7 @@
         })
         .fail(function (error) {
             console.log(error.responseJSON.message)
+            $('#failValue').text(error.responseJSON.message)
             $('#fail').show()
             setTimeout(function () {
                 $('#fail').hide()

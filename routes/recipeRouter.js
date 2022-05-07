@@ -26,6 +26,11 @@ app.post('/add', async (req, res) => {
     const {name,portion,chefname} = req.body
 
     try {
+        const duplicate = await (await Recipe.find({name}).lean()).length
+        if (duplicate) {
+            return res.status(500).json({ok: false, message: 'Bu tarif zaten var!'})
+        }
+
         await Recipe.create({name, portion: Number(portion), chefname})
         res.status(200).json({ok: true, message: 'Tarifiniz eklendi'})
     } catch (error) {
