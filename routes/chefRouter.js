@@ -6,7 +6,16 @@ const Chef = require('../models/Chef')
 const app = Router()
 
 app.get('/', async (req, res) => {
-    res.render('chefs')
+    try {
+        const chefs = await Chef.find().lean()
+
+        res.render('chefs', {
+            chefs
+        })
+    } catch (error) {
+        console.log(error)
+        res.render('chefs')
+    }
 })
 
 app.get('/add', async (req, res) => {
