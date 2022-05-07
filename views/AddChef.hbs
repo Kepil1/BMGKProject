@@ -16,7 +16,7 @@
 
 <script>
     $('#addBtn').on('click', function () {
-        $.post('http://localhost:3333/chefs/add', {
+        $.post('http://192.168.1.35:3333/chefs/add', {
             name: $('#name').val()
         })
         .done(function (data) {
@@ -33,5 +33,7 @@
                 $('#fail').hide()
             }, 2000)
         })
+
+        $('#name').val(null)
     })
 </script>

@@ -24,7 +24,7 @@
 
 <script>
     $('#addBtn').on('click', function () {
-        $.post('http://localhost:3333/recipes/add', {
+        $.post('http://192.168.1.35:3333/recipes/add', {
             name: $('#name').val(),
             portion: $('#portion').val(),
             chefname: $('#chefname').val()
@@ -43,5 +43,9 @@
                 $('#fail').hide()
             }, 2000)
         })
+
+        $('#name').val(null)
+        $('#portion').val('1')
+        $('#chefname').val(null)
     })
 </script>
