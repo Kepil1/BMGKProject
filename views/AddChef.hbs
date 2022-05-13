@@ -16,7 +16,7 @@
 
 <script>
     $('#addBtn').on('click', function () {
-        $.post('http://192.168.1.35:3333/chefs/add', {
+        $.post('https://kepil-yemek-tarifleri.herokuapp.com/chefs/add', {
             name: $('#name').val()
         })
         .done(function (data) {

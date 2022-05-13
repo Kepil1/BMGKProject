@@ -3,7 +3,7 @@
     $(document).ready(function () {
         $('#updateBtn').on('click', function () {
             $.ajax({
-            url: `http://192.168.1.35:3333/chefs/update/${new_id}/${$('#upt_name').val()}`,
+            url: `https://kepil-yemek-tarifleri.herokuapp.com/chefs/update/${new_id}/${$('#upt_name').val()}`,
             type: 'PUT',
             success: function (data) {
                 alert(data.message)
@@ -21,7 +21,7 @@
     }
     function deleteFunc (id) {
         $.ajax({
-            url: 'http://192.168.1.35:3333/chefs/delete/'.concat(id),
+            url: 'https://kepil-yemek-tarifleri.herokuapp.com/chefs/delete/'.concat(id),
             type: 'DELETE',
             success: function (data) {
                 alert(data.message)
